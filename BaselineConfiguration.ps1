@@ -32,7 +32,7 @@ Configuration BaselineConfiguration
     # registry Settings
     $registrySettings = @(
         # disable Windows Update
-        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU'; ValueName = 'NoAutoUpdate'; ValueType = 'Dword'; ValueData = '1'; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU'; ValueName = 'NoAutoUpdate'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'; ValueName = 'DoNotConnectToWindowsUpdateInternetLocations'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
         # disable Search UI
@@ -51,20 +51,19 @@ Configuration BaselineConfiguration
         # disable Consumer Features
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent'; ValueName = 'DisableWindowsConsumerFeatures'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         # disable Windows telemetry
-        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection'; ValueName = 'AllowTelemetry'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
-        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection'; ValueName = 'AllowDeviceNameInTelemetry'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
-        @{ Key = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection'; ValueName = 'AllowTelemetry'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
-        @{ Key = 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection'; ValueName = 'AllowTelemetry'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
-        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\SQMClient\Windows'; ValueName = 'CEIPEnable'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection'; ValueName = 'AllowTelemetry'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection'; ValueName = 'AllowDeviceNameInTelemetry'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection'; ValueName = 'AllowTelemetry'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection'; ValueName = 'AllowTelemetry'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\SQMClient\Windows'; ValueName = 'CEIPEnable'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
         # disable OneDrive
-        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive'; ValueName = 'DisableFileSyncNGSC'; ValueType = 'Dword'; ValueData = '1'; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive'; ValueName = 'DisableFileSyncNGSC'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         # disable Xbox
-        @{ Key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR'; ValueName = 'AppCaptureEnabled'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
-        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR'; ValueName = 'AllowGameDVR'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR'; ValueName = 'AllowGameDVR'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
         # disable Maps
-        @{ Key = 'HKLM:\SYSTEM\Maps'; ValueName = 'AutoUpdateEnabled'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SYSTEM\Maps'; ValueName = 'AutoUpdateEnabled'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
         # disable MDM
-        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\MDM'; ValueName = 'DisableRegistration'; ValueType = 'Dword'; ValueData = '1'; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\MDM'; ValueName = 'DisableRegistration'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         # disable Delivery Optimisation
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\DoSvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
         # disable Edge startup boost and bg mode

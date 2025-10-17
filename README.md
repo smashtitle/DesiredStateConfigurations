@@ -1,2 +1,126 @@
 # DesiredStateConfigurations
-A collection of Desired State Configurations (DSC v1.1) for use in detection labs and attack ranges
+A collection of Desired State Configurations (DSC v1.1) for use in detection labs and attack ranges.
+
+## BaselineConfiguration.ps1
+This PowerShell Desired State Configuration (DSC) script optimises Windows 11 for detection lab use by removing non-essential components and enabling comprehensive logging. The intent is to maximally reduce resource consumption while enabling detection-relevant telemetry.
+
+### Usage
+Run `Bootstrap.ps1` first, then `BaselineConfiguration.ps1`. Note that the latter script grabs remote resources, like a modified Sysmon config from [my repo](https://github.com/smashtitle/TelemetryForge/blob/main/sysmonconfig-research.xml), a Sysmon installer from the Sysinternals site, and [RPCFirewall](ttps://github.com/zeronetworks/rpcfirewall) from GitHub.
+
+The script creates a working directory at `C:\Tools\` for downloaded components and logs execution output to `C:\Tools\dsc-execution.log`. Unfortunately, the output is quite long at ~5000 lines, but you can search for errors if you encounter any unusual issues. At this time, there are no errors, but I can't guarantee this will remain the case (downloads may become unavailable, for instance). I tested against the Azure Windows 11 SKU `win11-25h2-pron` version `26200.6584.250915`. `-pron` denotes Windows 11 Pro N, which is designed for the European market and identical to Windows 11 Pro, but excludes media-related technologies like Windows Media Player, Movies & TV, Groove Music, Skype, and Voice Recorder.
+
+> [!WARNING]
+> This script embeds [default credentials](https://github.com/smashtitle/DesiredStateConfigurations/blob/9cf4776b7423ed42d7dfb030a1e94d1d3bd072cf/BaselineConfiguration.ps1#L573-L574) at the end. 
+
+### Disabled Windows Features
+The configuration disables the following Windows features through registry modifications and service configuration:
+- Windows Update and related services
+- Windows Search and Cortana
+- SmartScreen filtering and threat protection
+- Windows phone-home telemetry
+- OneDrive file sync
+- Xbox gaming features and overlay services
+- Maps auto-update and notifications
+- Mobile Device Management (MDM) enrollment
+- Delivery Optimization peer-to-peer services
+- Microsoft Edge startup boost and background mode
+- Cross-device synchronization services (Connected Devices Platform, Sync Host, Contact Data, User Data Storage, User Data Access)
+- Windows Push Notifications
+
+### Removed Services
+The script disables about 30 services including:
+- Windows Update components
+- Print Spooler
+- Windows Audio
+- Geolocation and Sensor services
+- Volume Shadow Copy
+- Plug and Play
+- Various Hyper-V integration services
+- Smart Card enumeration
+- SSDP Discovery and Network Connected Devices Auto-Setup
+
+### Disabled Scheduled Tasks
+The configuration disables about 20 scheduled tasks related to:
+- App compatibility telemetry collection
+- Customer Experience Improvement Program (CEIP)
+- Disk diagnostics
+- Xbox Live synchronization
+- Windows Maps updates
+- Network location awareness
+- Enterprise and MDM policy refresh tasks
+- .NET Framework assembly optimization
+- OneDrive and Microsoft Edge maintenance tasks
+
+### Removed Applications
+The script removes almost 50 provisioned and installed AppX packages including:
+- Microsoft Store and Store Purchase App
+- OneDrive
+- Microsoft Edge
+- Xbox applications and services
+- Built-in Windows apps (Calculator, Camera, Alarms, Photos, Sound Recorder, Notepad, Terminal)
+- Office Hub and Outlook
+- Feedback Hub and Get Help
+- Weather, News, and Widget Platform
+- Media codec extensions (HEVC, HEIF, RAW, VP9, WebP, AV1, MPEG2)
+- Teams, Clipchamp, and Quick Assist
+
+### Event Log Configuration
+The configuration enables additional logs:
+- Security, System, and Application logs
+- PowerShell Operational
+- WMI Activity
+- Task Scheduler
+- SMB Server (Operational and Security)
+- SMB Client Security
+- LSA Operational
+- CAPI2 Operational
+- NTLM Operational
+- Code Integrity
+- Group Policy
+- WinRM
+- Terminal Services (Remote Connection Manager and Local Session Manager)
+- Sysmon Operational
+
+### Audit Policies
+The script configures audit policies across multiple categories.
+
+**Account Logon:** Credential Validation, Kerberos Authentication Service, and Kerberos Service Ticket Operations (Success and Failure)
+
+**Account Management:** Computer Account Management, Other Account Management Events, Security Group Management, and User Account Management (Success and Failure where applicable)
+
+**Detailed Tracking:** Plug and Play Events, Process Creation, Process Termination, RPC Events, and Token Right Adjusted Events (Success and Failure)
+
+### Enhanced PowerShell and Process Auditing
+The configuration enables:
+- PowerShell Module Logging for all modules
+- PowerShell Script Block Logging
+- Process Command Line Auditing (includes full command line in Event ID 4688)
+
+### Sysmon
+The script downloads and installs Sysmon64 with a custom configuration focused on detection research. Sysmon provides detailed process creation, network connection, and file activity monitoring.
+
+### RPC Firewall
+The configuration deploys Zero Networks RPC Firewall (version 2.2.5) to monitor and control Remote Procedure Call traffic.
+
+### Implementation Notes
+This configuration applies settings at the system level through the Local Configuration Manager with the following parameters:
+
+`Configuration Mode: ApplyOnly`
+This means the configuration will only be applied once. There are two other modes: `ApplyAndMonitor` will apply then audit the configuration at regular intervals (default every 15m) and write to the `Microsoft-Windows-DSC` event provider. `ApplyAndAutoCorrect` will apply, audit at regular intervals, and attempt to re-apply if there is any configuration drift.
+
+`Reboot Node If Needed: True`
+Windows will reboot automatically if the configuration requires it. This will happen once.
+
+`Action After Reboot: ContinueConfiguration`
+Configuration will resume after reboot.
+
+### References
+Many thanks to: 
+
+[Yamato Security](https://github.com/Yamato-Security) for their extensive documentation and tooling for auditing Windows event logs.
+
+[Zero Networks](https://github.com/zeronetworks/rpcfirewall) for their excellent RPC and LDAP Firewall tool.
+
+[Olaf Hartong](https://github.com/olafhartong/sysmon-modular) for their Sysmon configurations.
+
+[Raphire](https://github.com/Raphire/Win11Debloat) for their debloating PowerShell script that provided insight into which components are safe to remove.

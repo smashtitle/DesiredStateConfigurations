@@ -2,7 +2,7 @@
 A collection of Desired State Configurations (DSC v1.1) for use in detection labs and attack ranges.
 
 ## BaselineConfiguration.ps1
-This PowerShell Desired State Configuration (DSC) script optimises Windows 11 for detection lab use by removing non-essential components and enabling comprehensive logging. The intent is to maximally reduce resource consumption while enabling detection-relevant telemetry.
+This PowerShell Desired State Configuration (DSC) optimises Windows 11 for detection lab use by removing non-essential components and enabling comprehensive logging. The intent is to maximally reduce resource consumption while enabling detection-relevant telemetry.
 
 ### Usage
 Run `Bootstrap.ps1` first, then `BaselineConfiguration.ps1`. Note that the latter script grabs remote resources, like a modified Sysmon config from [my repo](https://github.com/smashtitle/TelemetryForge/blob/main/sysmonconfig-research.xml), a Sysmon installer from the Sysinternals site, and [RPCFirewall](ttps://github.com/zeronetworks/rpcfirewall) from GitHub.

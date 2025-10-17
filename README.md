@@ -12,7 +12,7 @@ The script creates a working directory at `C:\Tools\` for downloaded components 
 > [!WARNING]
 > This script embeds [default credentials](https://github.com/smashtitle/DesiredStateConfigurations/blob/9cf4776b7423ed42d7dfb030a1e94d1d3bd072cf/BaselineConfiguration.ps1#L573-L574) at the end. 
 
-### Disabled Windows Features
+### Windows Features
 The configuration disables the following Windows features through registry modifications and service configuration:
 - Windows Update and related services
 - Windows Search and Cortana
@@ -27,7 +27,7 @@ The configuration disables the following Windows features through registry modif
 - Cross-device synchronization services (Connected Devices Platform, Sync Host, Contact Data, User Data Storage, User Data Access)
 - Windows Push Notifications
 
-### Removed Services
+### Services
 The script disables about 30 services including:
 - Windows Update components
 - Print Spooler
@@ -39,7 +39,7 @@ The script disables about 30 services including:
 - Smart Card enumeration
 - SSDP Discovery and Network Connected Devices Auto-Setup
 
-### Disabled Scheduled Tasks
+### Scheduled Tasks
 The configuration disables about 20 scheduled tasks related to:
 - App compatibility telemetry collection
 - Customer Experience Improvement Program (CEIP)
@@ -51,7 +51,7 @@ The configuration disables about 20 scheduled tasks related to:
 - .NET Framework assembly optimization
 - OneDrive and Microsoft Edge maintenance tasks
 
-### Removed Applications
+### Applications
 The script removes almost 50 provisioned and installed AppX packages including:
 - Microsoft Store and Store Purchase App
 - OneDrive

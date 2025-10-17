@@ -82,7 +82,7 @@ The configuration enables additional logs:
 - Sysmon Operational
 
 ### Audit Policies
-The script configures audit policies across multiple categories.)
+The script configures audit policies across multiple categories.
 
 **Account Logon:** Credential Validation, Kerberos Authentication Service, and Kerberos Service Ticket Operations (Success and Failure)
 

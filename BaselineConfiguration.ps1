@@ -35,11 +35,9 @@ Configuration BaselineConfiguration
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU'; ValueName = 'NoAutoUpdate'; ValueType = 'Dword'; ValueData = '1'; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'; ValueName = 'DoNotConnectToWindowsUpdateInternetLocations'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\WaaSMedicSvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
-
         # disable Search UI
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search'; ValueName = 'AllowCortana'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search'; ValueName = 'DisableSearch'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
-        
         # disable SmartScreen
         @{ Key = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer'; ValueName = 'SmartScreenEnabled'; ValueType = 'String'; ValueData = 'Off'; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System'; ValueName = 'EnableSmartScreen'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
@@ -48,63 +46,46 @@ Configuration BaselineConfiguration
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter'; ValueName = 'EnabledV9'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender'; ValueName = 'PUAProtection'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\webthreatdefusersvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
-
         # remove SecurityHealth from startup
         @{ Key = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'; ValueName = 'SecurityHealth'; Ensure = 'Absent' }
-
         # disable Consumer Features
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent'; ValueName = 'DisableWindowsConsumerFeatures'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
-
         # disable Windows telemetry
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection'; ValueName = 'AllowTelemetry'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection'; ValueName = 'AllowDeviceNameInTelemetry'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection'; ValueName = 'AllowTelemetry'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection'; ValueName = 'AllowTelemetry'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\SQMClient\Windows'; ValueName = 'CEIPEnable'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
-
         # disable OneDrive
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive'; ValueName = 'DisableFileSyncNGSC'; ValueType = 'Dword'; ValueData = '1'; Ensure = 'Present' }
-
         # disable Xbox
         @{ Key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\GameDVR'; ValueName = 'AppCaptureEnabled'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR'; ValueName = 'AllowGameDVR'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
-
         # disable Maps
         @{ Key = 'HKLM:\SYSTEM\Maps'; ValueName = 'AutoUpdateEnabled'; ValueType = 'Dword'; ValueData = '0'; Ensure = 'Present' }
-
         # disable MDM
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\MDM'; ValueName = 'DisableRegistration'; ValueType = 'Dword'; ValueData = '1'; Ensure = 'Present' }
-
         # disable Delivery Optimisation
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\DoSvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
-
         # disable Edge startup boost and bg mode
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Edge'; ValueName = 'StartupBoostEnabled'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Edge'; ValueName = 'BackgroundModeEnabled'; ValueType = 'Dword'; ValueData = 0; Ensure = 'Present' }
-
         # disable Connected Devices Platform (cross-device sync and activities)
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\CDPUserSvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
-
         # disable Sync Host (syncs Mail, Contacts, Calendar, and other app data)
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\OneSyncSvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
-
         # disable Contact Data indexing
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\PimIndexMaintenanceSvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
-
         # disable User Data Storage (stores structured user data for apps)
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\UnistoreSvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
-
         # disable User Data Access (provides apps access to email, contacts, calendar)
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\UserDataSvc'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
-
         # disable Windows Push Notifications
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\WpnUserService'; ValueName = 'Start'; ValueType = 'Dword'; ValueData = 4; Ensure = 'Present' }
-
         # enable PowerShell Logging
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging'; ValueName = 'EnableModuleLogging'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames'; ValueName = '1'; ValueType = 'String'; ValueData = '*'; Ensure = 'Present' }
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging'; ValueName = 'EnableScriptBlockLogging'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
-        
         # enable Process Command Line Auditing
         @{ Key = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit'; ValueName = 'ProcessCreationIncludeCmdLine_Enabled'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
     )
@@ -336,8 +317,7 @@ Configuration BaselineConfiguration
       @{ LogName = 'Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-TerminalServices-LocalSessionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-Diagnosis-Scripted/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Sysmon/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = '[Script]WaitForSysmonLog' }
-      @{ LogName = 'Anchors'; MaxSize = 2GB; IsEnabled = $true; DependsOn = '[Script]EnsureAnchorSource' }
+      @{ LogName = 'Microsoft-Windows-Sysmon/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
     )
 
     foreach ($log in $eventLogs)
@@ -371,7 +351,6 @@ Configuration BaselineConfiguration
     AuditPolicySubcategory APS_KerberosAuthSvc_F { Name = 'Kerberos Authentication Service'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_KerberosST_S { Name = 'Kerberos Service Ticket Operations'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_KerberosST_F { Name = 'Kerberos Service Ticket Operations'; AuditFlag = 'Failure' }
-
     # Account Management
     AuditPolicySubcategory APS_ComputerAcctMgmt_S { Name = 'Computer Account Management'; AuditFlag = 'Success' }
     AuditPolicySubcategory APD_ComputerAcctMgmt_F { Name = 'Computer Account Management'; AuditFlag = 'Failure'; Ensure = 'Absent' }
@@ -381,7 +360,6 @@ Configuration BaselineConfiguration
     AuditPolicySubcategory APD_SecGroupMgmt_F { Name = 'Security Group Management'; AuditFlag = 'Failure'; Ensure = 'Absent' }
     AuditPolicySubcategory APS_UserAcctMgmt_S { Name = 'User Account Management'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_UserAcctMgmt_F { Name = 'User Account Management'; AuditFlag = 'Failure' }
-
     # Detailed Tracking
     AuditPolicySubcategory APS_PnP_S { Name = 'Plug and Play Events'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_PnP_F { Name = 'Plug and Play Events'; AuditFlag = 'Failure' }

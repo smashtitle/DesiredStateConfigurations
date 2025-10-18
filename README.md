@@ -65,8 +65,7 @@ The script removes almost 50 provisioned and installed AppX packages including:
 - Teams, Clipchamp, and Quick Assist
 
 ### Event Log Configuration
-The configuration enables additional logs:
-- Security, System, and Application logs
+The configuration enables/configures these logs:
 - PowerShell Operational
 - WMI Activity
 - Task Scheduler

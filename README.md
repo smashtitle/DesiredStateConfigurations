@@ -66,22 +66,37 @@ The script removes almost 50 provisioned and installed AppX packages including:
 
 ### Event Log Configuration
 The configuration enables/configures these logs:
-- PowerShell Operational
-- WMI Activity
-- Task Scheduler
-- SMB Server (Operational and Security)
-- SMB Client Security
-- LSA Operational
-- CAPI2 Operational
-- NTLM Operational
-- Code Integrity
-- Group Policy
-- WinRM
-- Terminal Services (Remote Connection Manager and Local Session Manager)
-- Sysmon Operational
+```
+Windows PowerShell
+PowerShellCore/Operational
+Microsoft-Windows-PowerShell/Operational
+Microsoft-Windows-WMI-Activity/Operational
+Microsoft-Windows-TaskScheduler/Operational
+Microsoft-Windows-SMBServer/Operational
+Microsoft-Windows-SMBServer/Security
+Microsoft-Windows-SMBClient/Security
+Microsoft-Windows-LSA/Operational
+Microsoft-Windows-CAPI2/Operational
+Microsoft-Windows-NTLM/Operational
+Microsoft-Windows-CodeIntegrity/Operational
+Microsoft-Windows-Bits-Client/Operational
+Microsoft-Windows-DriverFrameworks-UserMode/Operational
+Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
+Microsoft-Windows-Security-Mitigations/KernelMode
+Microsoft-Windows-Security-Mitigations/UserMode
+Microsoft-Windows-WinRM/Operational
+Microsoft-Windows-Shell-Core/Operational
+Microsoft-Windows-VHDMP-Operational
+Microsoft-Windows-Winlogon/Operational
+Microsoft-Windows-UniversalTelemetryClient/Operational
+Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
+Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
+Microsoft-Windows-Diagnosis-Scripted/Operational
+Microsoft-Windows-Sysmon/Operational
+```
 
 ### Audit Policies
-The script configures audit policies across multiple categories.
+The script configures audit policies across multiple categories. This work is based on Yamato Security's [EnableWindowsLogSettings](https://github.com/Yamato-Security/EnableWindowsLogSettings/blob/main/YamatoSecurityConfigureWinEventLogs.bat) work.
 
 **Account Logon:** Credential Validation, Kerberos Authentication Service, and Kerberos Service Ticket Operations (Success and Failure)
 
@@ -96,10 +111,12 @@ The configuration enables:
 - Process Command Line Auditing (includes full command line in Event ID 4688)
 
 ### Sysmon
-The script downloads and installs Sysmon64 with a custom configuration focused on detection research. Sysmon provides detailed process creation, network connection, and file activity monitoring.
+The script downloads and installs Sysmon64 with a configuration focused on detection research, based on an updated version of Olaf Hartong's `sysmonconfig-research`. You can find my configuration [here](https://github.com/smashtitle/TelemetryForge/blob/main/sysmonconfig-research.xml), and a link to Olaf's Sysmon configs repo in the references section.
 
 ### RPC Firewall
-The configuration deploys Zero Networks RPC Firewall (version 2.2.5) to monitor and control Remote Procedure Call traffic.
+The configuration deploys Zero Networks RPC Firewall (version 2.2.5) to monitor Remote Procedure Call traffic. You can find RPC Filter events in Event ID: 5712 in `Security`, and Firewall logs in `Application/RPCFW`. Additionally, here's a link to some related [Sigma rules](https://github.com/SigmaHQ/sigma/tree/master/rules/application/rpc_firewall). 
+
+I also recommend Zero Networks LDAP Firewall, although it isn't included in this DSC.
 
 ### Implementation Notes
 This configuration applies settings at the system level through the Local Configuration Manager with the following parameters:

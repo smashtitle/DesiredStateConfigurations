@@ -409,14 +409,15 @@ Configuration BaselineConfiguration
     AuditPolicySubcategory APS_RPCEvents_F { Name = 'RPC Events'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_TokenRightAdjusted_S { Name = 'Token Right Adjusted Events'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_TokenRightAdjusted_F { Name = 'Token Right Adjusted Events'; AuditFlag = 'Failure' }
-    #Windows Filtering Platform
+    # RPC Events
     AuditPolicySubcategory APS_RPCEvents_S { Name = 'RPC Events'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_RPCEvents_F { Name = 'RPC Events'; AuditFlag = 'Failure' }
+    #Windows Filtering Platform
+    AuditPolicySubcategory APS_WFPC_S { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Success'; Ensure = 'Present' }
+    AuditPolicySubcategory APS_WFPC_F { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Failure'; Ensure = 'Present' }
     # create dirs
     $toolsDir = 'C:\Tools\'
     $downloadsDir = Join-Path -Path $toolsDir -ChildPath 'Downloads'
-    AuditPolicySubcategory APS_WFPC_S { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Success'; Ensure = 'Present' }
-    AuditPolicySubcategory APS_WFPC_F { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Failure'; Ensure = 'Present' }
 
     File EnsureToolsFolder
     {

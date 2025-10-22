@@ -96,7 +96,7 @@ Microsoft-Windows-Sysmon/Operational
 ```
 
 ### Audit Policies
-The script configures audit policies across multiple categories. This work is based on Yamato Security's [EnableWindowsLogSettings](https://github.com/Yamato-Security/EnableWindowsLogSettings/blob/main/YamatoSecurityConfigureWinEventLogs.bat) work.
+The script configures audit policies across multiple categories. This is based on Yamato Security's [EnableWindowsLogSettings](https://github.com/Yamato-Security/EnableWindowsLogSettings/blob/main/YamatoSecurityConfigureWinEventLogs.bat) work.
 
 **Account Logon:** Credential Validation, Kerberos Authentication Service, and Kerberos Service Ticket Operations (Success and Failure)
 

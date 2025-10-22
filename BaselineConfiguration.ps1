@@ -21,6 +21,8 @@ Configuration BaselineConfiguration
 
   Node $NodeName
   {
+    $TranscriptDirectory = $Node.TranscriptDirectory
+    
     LocalConfigurationManager
     {
       ConfigurationMode = 'ApplyOnly'
@@ -87,6 +89,27 @@ Configuration BaselineConfiguration
         @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging'; ValueName = 'EnableScriptBlockLogging'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         # enable Process Command Line Auditing
         @{ Key = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit'; ValueName = 'ProcessCreationIncludeCmdLine_Enabled'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        # enable PowerShell Transcription 64-bit
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription'; ValueName = 'EnableTranscripting'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription'; ValueName = 'EnableInvocationHeader'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription'; ValueName = 'OutputDirectory'; ValueType = 'String'; ValueData = $TranscriptDirectory; Ensure = 'Present' }
+        # enable PowerShell Transcription 32-bit
+        @{ Key = 'HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription'; ValueName = 'EnableTranscripting'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription'; ValueName = 'EnableInvocationHeader'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription'; ValueName = 'OutputDirectory'; ValueType = 'String'; ValueData = $TranscriptDirectory; Ensure = 'Present' }
+        # enable Windows Firewall logging domain profile
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging'; ValueName = 'LogAllowedConnections'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging'; ValueName = 'LogDroppedConnections'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging'; ValueName = 'LogFileSize'; ValueType = 'Dword'; ValueData = 2097152; Ensure = 'Present' }
+        # enable Windows Firewall logging private profile
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PrivateProfile\Logging'; ValueName = 'LogAllowedConnections'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PrivateProfile\Logging'; ValueName = 'LogDroppedConnections'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PrivateProfile\Logging'; ValueName = 'LogFileSize'; ValueType = 'Dword'; ValueData = 2097152; Ensure = 'Present' }
+        # enable Windows Firewall logging public profile
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging'; ValueName = 'LogAllowedConnections'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging'; ValueName = 'LogDroppedConnections'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging'; ValueName = 'LogFileSize'; ValueType = 'Dword'; ValueData = 2097152; Ensure = 'Present' }
+
     )
 
     foreach ($reg in $registrySettings) {
@@ -309,6 +332,8 @@ Configuration BaselineConfiguration
       @{ LogName = 'Microsoft-Windows-SMBServer/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-SMBServer/Security'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-SMBClient/Security'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-SMBClient/Connectivity'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-DNS-Client/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-LSA/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-CAPI2/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-NTLM/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
@@ -326,6 +351,8 @@ Configuration BaselineConfiguration
       @{ LogName = 'Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-TerminalServices-LocalSessionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-Diagnosis-Scripted/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-AppModel-Runtime/Admin'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-Kernel-EventTracing/Admin'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-Sysmon/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
     # @{ LogName = 'Microsoft Office 16 Alerts'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
     # Not enabled as Office isn't installed by default
@@ -382,10 +409,14 @@ Configuration BaselineConfiguration
     AuditPolicySubcategory APS_RPCEvents_F { Name = 'RPC Events'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_TokenRightAdjusted_S { Name = 'Token Right Adjusted Events'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_TokenRightAdjusted_F { Name = 'Token Right Adjusted Events'; AuditFlag = 'Failure' }
-
+    #Windows Filtering Platform
+    AuditPolicySubcategory APS_RPCEvents_S { Name = 'RPC Events'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_RPCEvents_F { Name = 'RPC Events'; AuditFlag = 'Failure' }
     # create dirs
     $toolsDir = 'C:\Tools\'
     $downloadsDir = Join-Path -Path $toolsDir -ChildPath 'Downloads'
+    AuditPolicySubcategory APS_WFPC_S { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Success'; Ensure = 'Present' }
+    AuditPolicySubcategory APS_WFPC_F { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Failure'; Ensure = 'Present' }
 
     File EnsureToolsFolder
     {
@@ -400,6 +431,14 @@ Configuration BaselineConfiguration
       Type = 'Directory'
       DestinationPath = $downloadsDir
       DependsOn = '[File]EnsureToolsFolder'
+    }
+
+    File PSTranscriptDirectory
+    {
+      Ensure = 'Present'
+      Type = 'Directory'
+      DestinationPath = $TranscriptDirectory
+      Force = $true
     }
 
     # RPC Firewall download and installation
@@ -515,6 +554,28 @@ Configuration BaselineConfiguration
       }
     }
 
+    Script ConfigureFirewallLogging
+    {
+      GetScript = {
+        @{ Result = (netsh advfirewall show allprofiles logging | Out-String) }
+      }
+      TestScript = {
+        $profiles = @('domainprofile', 'privateprofile', 'publicprofile')
+        foreach ($profile in $profiles) {
+          $output = netsh advfirewall show $profile logging | Out-String
+          if ($output -notmatch "LogAllowedConnections\s+Enable") { return $false }
+          if ($output -notmatch "LogDroppedConnections\s+Enable") { return $false }
+          if ($output -notmatch "MaxFileSize\s+2097152") { return $false }
+        }
+        return $true
+      }
+      SetScript = {
+        netsh advfirewall set allprofiles logging allowedconnections enable | Out-Null
+        netsh advfirewall set allprofiles logging droppedconnections enable | Out-Null
+        netsh advfirewall set allprofiles logging maxfilesize 2097152 | Out-Null
+      }
+    }
+
     # clean up temp files
     Script CleanupTemps
     {
@@ -554,23 +615,24 @@ $ConfigData = @{
   AllNodes = @(
     @{
       NodeName = 'localhost'
+      TranscriptDirectory = 'C:\PSTranscripts'
       PSDscAllowPlainTextPassword = $true
     }
   )
 }
 
 $SecurePassword = ConvertTo-SecureString 'HelloP@ssw0rd123!' -AsPlainText -Force
-$Credential     = [PSCredential]::new('admin', $SecurePassword)
+$Credential = [PSCredential]::new('admin', $SecurePassword)
 
 # compile
 $OutPath = Join-Path $PSScriptRoot 'MOF'
 New-Item -ItemType Directory -Path $OutPath -Force | Out-Null
 
 $params = @{
-  NodeName              = 'localhost'
-  LocalAdminCredential  = $Credential
-  ConfigurationData     = $ConfigData
-  OutputPath            = $OutPath
+  NodeName = 'localhost'
+  LocalAdminCredential = $Credential
+  ConfigurationData = $ConfigData
+  OutputPath = $OutPath
 }
 BaselineConfiguration @params
 

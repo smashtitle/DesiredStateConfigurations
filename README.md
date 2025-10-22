@@ -75,6 +75,8 @@ Microsoft-Windows-TaskScheduler/Operational
 Microsoft-Windows-SMBServer/Operational
 Microsoft-Windows-SMBServer/Security
 Microsoft-Windows-SMBClient/Security
+Microsoft-Windows-SMBClient/Connectivity
+Microsoft-Windows-DNS-Client/Operational
 Microsoft-Windows-LSA/Operational
 Microsoft-Windows-CAPI2/Operational
 Microsoft-Windows-NTLM/Operational
@@ -92,6 +94,8 @@ Microsoft-Windows-UniversalTelemetryClient/Operational
 Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
 Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
 Microsoft-Windows-Diagnosis-Scripted/Operational
+Microsoft-Windows-AppModel-Runtime/Admin
+Microsoft-Windows-Kernel-EventTracing/Admin
 Microsoft-Windows-Sysmon/Operational
 ```
 
@@ -104,11 +108,15 @@ The script configures audit policies across multiple categories. This is based o
 
 **Detailed Tracking:** Plug and Play Events, Process Creation, Process Termination, RPC Events, and Token Right Adjusted Events (Success and Failure)
 
-### Enhanced PowerShell and Process Auditing
+**Windows Filtering Platform** Connection logging
+
+### Enhanced PowerShell, Firewall Logging, Process Auditing
 The configuration enables:
-- PowerShell Module Logging for all modules
-- PowerShell Script Block Logging
-- Process Command Line Auditing (includes full command line in Event ID 4688)
+- PowerShell Module logging for all modules
+- PowerShell Script Block logging
+- PowerShell Transcripts
+- Windows Firewall connection logging
+- Process command line auditing (includes full command line in Event ID 4688)
 
 ### Sysmon
 The script downloads and installs Sysmon64 with a configuration focused on detection research, based on an updated version of Olaf Hartong's `sysmonconfig-research`. You can find my configuration [here](https://github.com/smashtitle/TelemetryForge/blob/main/sysmonconfig-research.xml), and a link to Olaf's Sysmon configs repo in the references section.

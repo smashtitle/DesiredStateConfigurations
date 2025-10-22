@@ -319,15 +319,21 @@ Configuration BaselineConfiguration
       @{ LogName = 'Microsoft-Windows-Security-Mitigations/KernelMode'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-Security-Mitigations/UserMode'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-WinRM/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-Shell-Core/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-VHDMP-Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-Winlogon/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-UniversalTelemetryClient/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-TerminalServices-LocalSessionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-Diagnosis-Scripted/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-Sysmon/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+    # @{ LogName = 'Microsoft Office 16 Alerts'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+    # Not enabled as Office isn't installed by default
     )
 
     foreach ($log in $eventLogs)
     {
-      $resourceName = $log.LogName -replace '[/-]', ''
+      $resourceName = $log.LogName -replace '[-/]', ''
       
       if ($log.DependsOn) {
         WindowsEventLog $resourceName { 

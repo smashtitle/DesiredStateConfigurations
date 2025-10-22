@@ -301,6 +301,8 @@ Configuration BaselineConfiguration
       @{ LogName = 'Security'; MaxSize = 4GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'System'; MaxSize = 4GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Application'; MaxSize = 4GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Windows PowerShell'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'PowerShellCore/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-PowerShell/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-WMI-Activity/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-TaskScheduler/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }

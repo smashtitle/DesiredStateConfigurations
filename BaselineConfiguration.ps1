@@ -311,7 +311,11 @@ Configuration BaselineConfiguration
       @{ LogName = 'Microsoft-Windows-CAPI2/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-NTLM/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-CodeIntegrity/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-GroupPolicy/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-Bits-Client/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-DriverFrameworks-UserMode/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-Windows Firewall With Advanced Security/Firewall'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-Security-Mitigations/KernelMode'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Microsoft-Windows-Security-Mitigations/UserMode'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-WinRM/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
       @{ LogName = 'Microsoft-Windows-TerminalServices-LocalSessionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }

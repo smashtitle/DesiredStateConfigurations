@@ -109,6 +109,8 @@ Configuration BaselineConfiguration
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging'; ValueName = 'LogAllowedConnections'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging'; ValueName = 'LogDroppedConnections'; ValueType = 'Dword'; ValueData = 1; Ensure = 'Present' }
         @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging'; ValueName = 'LogFileSize'; ValueType = 'Dword'; ValueData = 2097152; Ensure = 'Present' }
+        # enable NTLM auditing
+        @{ Key = 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0'; ValueName = 'AuditReceivingNTLMTraffic'; ValueType = 'Dword'; ValueData = 2; Ensure = 'Present' }
 
     )
 
@@ -321,40 +323,43 @@ Configuration BaselineConfiguration
 
     # define event log configurations
     $eventLogs = @(
-      @{ LogName = 'Security'; MaxSize = 4GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'System'; MaxSize = 4GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Application'; MaxSize = 4GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Windows PowerShell'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'PowerShellCore/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-PowerShell/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-WMI-Activity/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-TaskScheduler/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-SMBServer/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-SMBServer/Security'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-SMBClient/Security'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-SMBClient/Connectivity'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-DNS-Client/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-LSA/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-CAPI2/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-NTLM/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-CodeIntegrity/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Bits-Client/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-DriverFrameworks-UserMode/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Windows Firewall With Advanced Security/Firewall'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Security-Mitigations/KernelMode'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Security-Mitigations/UserMode'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-WinRM/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Shell-Core/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-VHDMP-Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Winlogon/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-UniversalTelemetryClient/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-TerminalServices-LocalSessionManager/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Diagnosis-Scripted/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-AppModel-Runtime/Admin'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Kernel-EventTracing/Admin'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-      @{ LogName = 'Microsoft-Windows-Sysmon/Operational'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
-    # @{ LogName = 'Microsoft Office 16 Alerts'; MaxSize = 2GB; IsEnabled = $true; DependsOn = $null }
+      @{ LogName = 'Security'; MaxSize = 4GB }
+      @{ LogName = 'System'; MaxSize = 4GB }
+      @{ LogName = 'Application'; MaxSize = 2GB }
+      @{ LogName = 'Windows PowerShell'; MaxSize = 2GB }
+      @{ LogName = 'PowerShellCore/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-PowerShell/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-WMI-Activity/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-WMI-Activity/Trace'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-TaskScheduler/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-SMBServer/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-SMBServer/Security'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-SMBClient/Security'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-SMBClient/Connectivity'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-DNS-Client/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-LSA/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-CAPI2/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-NTLM/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-CodeIntegrity/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-Bits-Client/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-DriverFrameworks-UserMode/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-Windows Firewall With Advanced Security/Firewall'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-Security-Mitigations/KernelMode'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-Security-Mitigations/UserMode'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-WinRM/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-Shell-Core/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-VHDMP-Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-Winlogon/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-UniversalTelemetryClient/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-TerminalServices-LocalSessionManager/Operational'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-Diagnosis-Scripted/Operational'; MaxSize = 2GB}
+      @{ LogName = 'Microsoft-Windows-AppModel-Runtime/Admin'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-Kernel-EventTracing/Admin'; MaxSize = 2GB}
+      @{ LogName = 'Microsoft-Windows-Crypto-DPAPI/Debug'; MaxSize = 2GB; IsEnabled = $true }
+      @{ LogName = 'Microsoft-Windows-Crypto-DPAPI/Operational'; MaxSize = 2GB; IsEnabled = $true }
+      @{ LogName = 'Microsoft-Windows-Sysmon/Operational'; MaxSize = 2GB }
+    # @{ LogName = 'Microsoft Office 16 Alerts'; MaxSize = 2GB }
     # Not enabled as Office isn't installed by default
     )
 
@@ -367,7 +372,7 @@ Configuration BaselineConfiguration
           LogName = $log.LogName
           LogMode = 'Circular'
           MaximumSizeInBytes = $log.MaxSize
-          IsEnabled = $log.IsEnabled
+          IsEnabled = $true
           DependsOn = $log.DependsOn
         }
       }
@@ -382,13 +387,23 @@ Configuration BaselineConfiguration
     }
 
     # Audit Policy configuration
-    # Account Logon
+    # Account Logon/Logoff/Lockout
     AuditPolicySubcategory APS_CredentialValidation_S { Name = 'Credential Validation'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_CredentialValidation_F { Name = 'Credential Validation'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_KerberosAuthSvc_S { Name = 'Kerberos Authentication Service'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_KerberosAuthSvc_F { Name = 'Kerberos Authentication Service'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_KerberosST_S { Name = 'Kerberos Service Ticket Operations'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_KerberosST_F { Name = 'Kerberos Service Ticket Operations'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_Logon_S { Name = 'Logon'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_Logon_F { Name = 'Logon'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_Logoff_S { Name = 'Logoff'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APD_Logoff_F { Name = 'Logoff'; AuditFlag = 'Failure'; Ensure = 'Absent' }
+    AuditPolicySubcategory APS_AccountLockout_S { Name = 'Account Lockout'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_AccountLockout_F { Name = 'Account Lockout'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_SpecialLogon_S { Name = 'Special Logon'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APD_SpecialLogon_F { Name = 'Special Logon'; AuditFlag = 'Failure'; Ensure = 'Absent' }
+    AuditPolicySubcategory APS_OtherLogonLogoff_S { Name = 'Other Logon/Logoff Events'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_OtherLogonLogoff_F { Name = 'Other Logon/Logoff Events'; AuditFlag = 'Failure' }
     # Account Management
     AuditPolicySubcategory APS_ComputerAcctMgmt_S { Name = 'Computer Account Management'; AuditFlag = 'Success' }
     AuditPolicySubcategory APD_ComputerAcctMgmt_F { Name = 'Computer Account Management'; AuditFlag = 'Failure'; Ensure = 'Absent' }
@@ -412,6 +427,15 @@ Configuration BaselineConfiguration
     #Windows Filtering Platform
     AuditPolicySubcategory APS_WFPC_S { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Success'; Ensure = 'Present' }
     AuditPolicySubcategory APS_WFPC_F { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Failure'; Ensure = 'Present' }
+    # DPAPI Activity auditing
+    AuditPolicySubcategory APS_DPAPIActivity_S { Name = 'DPAPI Activity'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_DPAPIActivity_F { Name = 'DPAPI Activity'; AuditFlag = 'Failure' }
+    # Privilege Use
+    AuditPolicySubcategory APS_SensitivePrivilegeUse_S { Name = 'Sensitive Privilege Use'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_SensitivePrivilegeUse_F { Name = 'Sensitive Privilege Use'; AuditFlag = 'Failure' }
+    # Policy Change
+    AuditPolicySubcategory APS_AuthorizationPolicyChange_S { Name = 'Authorization Policy Change'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_AuthorizationPolicyChange_F { Name = 'Authorization Policy Change'; AuditFlag = 'Failure' }
 
     # create dirs
     $toolsDir = 'C:\Tools\'

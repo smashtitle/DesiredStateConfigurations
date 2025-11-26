@@ -356,8 +356,8 @@ Configuration BaselineConfiguration
       @{ LogName = 'Microsoft-Windows-Diagnosis-Scripted/Operational'; MaxSize = 2GB}
       @{ LogName = 'Microsoft-Windows-AppModel-Runtime/Admin'; MaxSize = 2GB }
       @{ LogName = 'Microsoft-Windows-Kernel-EventTracing/Admin'; MaxSize = 2GB}
-      @{ LogName = 'Microsoft-Windows-Crypto-DPAPI/Debug'; MaxSize = 2GB; IsEnabled = $true }
-      @{ LogName = 'Microsoft-Windows-Crypto-DPAPI/Operational'; MaxSize = 2GB; IsEnabled = $true }
+      @{ LogName = 'Microsoft-Windows-Crypto-DPAPI/Debug'; MaxSize = 2GB }
+      @{ LogName = 'Microsoft-Windows-Crypto-DPAPI/Operational'; MaxSize = 2GB }
       @{ LogName = 'Microsoft-Windows-Sysmon/Operational'; MaxSize = 2GB }
     # @{ LogName = 'Microsoft Office 16 Alerts'; MaxSize = 2GB }
     # Not enabled as Office isn't installed by default
@@ -365,25 +365,25 @@ Configuration BaselineConfiguration
 
     foreach ($log in $eventLogs)
     {
-      $resourceName = $log.LogName -replace '[-/]', ''
-      
-      if ($log.DependsOn) {
-        WindowsEventLog $resourceName { 
-          LogName = $log.LogName
-          LogMode = 'Circular'
-          MaximumSizeInBytes = $log.MaxSize
-          IsEnabled = $true
-          DependsOn = $log.DependsOn
+        $resourceName = $log.LogName -replace '[-/]', ''
+        
+        if ($log.DependsOn) {
+            WindowsEventLog $resourceName { 
+                LogName = $log.LogName
+                LogMode = 'Circular'
+                MaximumSizeInBytes = $log.MaxSize
+                IsEnabled = $true
+                DependsOn = $log.DependsOn
+            }
         }
-      }
-      else {
-        WindowsEventLog $resourceName { 
-          LogName = $log.LogName
-          LogMode = 'Circular'
-          MaximumSizeInBytes = $log.MaxSize
-          IsEnabled = $log.IsEnabled
+        else {
+            WindowsEventLog $resourceName { 
+                LogName = $log.LogName
+                LogMode = 'Circular'
+                MaximumSizeInBytes = $log.MaxSize
+                IsEnabled = $true
+            }
         }
-      }
     }
 
     # Audit Policy configuration

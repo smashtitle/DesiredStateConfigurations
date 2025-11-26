@@ -660,5 +660,5 @@ $params = @{
 BaselineConfiguration @params
 
 # apply
-New-item -ItemType Directory -Path 'C:\Tools' -Force -ErrorAction SilentlyContinue | Out-Null
+New-Item -ItemType Directory -Path 'C:\Tools' -Force -ErrorAction SilentlyContinue | Out-Null
 Start-DscConfiguration -Path $OutPath -Wait -Verbose -Debug -Force *> C:\Tools\dsc-execution.log

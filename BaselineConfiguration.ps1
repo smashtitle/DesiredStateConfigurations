@@ -1,6 +1,6 @@
 # BaselineConfiguration.ps1
 # Common baseline configuration for all workstations and servers
-# Apply this first before machine-specific configurations
+# Apply this first before machine-specific configurations. Note this does NOT include Domain Controller-specific policies!
 
 Configuration BaselineConfiguration
 {
@@ -394,36 +394,45 @@ Configuration BaselineConfiguration
     AuditPolicySubcategory APS_KerberosAuthSvc_F { Name = 'Kerberos Authentication Service'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_KerberosST_S { Name = 'Kerberos Service Ticket Operations'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_KerberosST_F { Name = 'Kerberos Service Ticket Operations'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_OtherAccountLogon_S { Name = 'Other Account Logon Events'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_OtherAccountLogon_F { Name = 'Other Account Logon Events'; AuditFlag = 'Failure' }
+    #Logon/Logoff
     AuditPolicySubcategory APS_Logon_S { Name = 'Logon'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_Logon_F { Name = 'Logon'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_Logoff_S { Name = 'Logoff'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APD_Logoff_F { Name = 'Logoff'; AuditFlag = 'Failure'; Ensure = 'Absent' }
+    AuditPolicySubcategory APS_Logoff_F { Name = 'Logoff'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_AccountLockout_S { Name = 'Account Lockout'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_AccountLockout_F { Name = 'Account Lockout'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_SpecialLogon_S { Name = 'Special Logon'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APD_SpecialLogon_F { Name = 'Special Logon'; AuditFlag = 'Failure'; Ensure = 'Absent' }
+    AuditPolicySubcategory APS_SpecialLogon_F { Name = 'Special Logon'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_OtherLogonLogoff_S { Name = 'Other Logon/Logoff Events'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_OtherLogonLogoff_F { Name = 'Other Logon/Logoff Events'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_UserDeviceClaims_S { Name = 'User/Device Claims'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_UserDeviceClaims_F { Name = 'User/Device Claims'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_GroupMembership_S { Name = 'Group Membership'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_GroupMembership_F { Name = 'Group Membership'; AuditFlag = 'Failure' }
     # Account Management
     AuditPolicySubcategory APS_ComputerAcctMgmt_S { Name = 'Computer Account Management'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APD_ComputerAcctMgmt_F { Name = 'Computer Account Management'; AuditFlag = 'Failure'; Ensure = 'Absent' }
-    AuditPolicySubcategory APS_OtherAcctMgmt_S { Name = 'Other Account Management Events'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APS_OtherAcctMgmt_F { Name = 'Other Account Management Events'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_ComputerAcctMgmt_F { Name = 'Computer Account Management'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_SecGroupMgmt_S { Name = 'Security Group Management'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APD_SecGroupMgmt_F { Name = 'Security Group Management'; AuditFlag = 'Failure'; Ensure = 'Absent' }
-    AuditPolicySubcategory APS_UserAcctMgmt_S { Name = 'User Account Management'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APS_UserAcctMgmt_F { Name = 'User Account Management'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_SecGroupMgmt_F { Name = 'Security Group Management'; AuditFlag = 'Failure' }
     # Detailed Tracking
-    AuditPolicySubcategory APS_PnP_S { Name = 'Plug and Play Events'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APS_PnP_F { Name = 'Plug and Play Events'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_ProcessCreation_S { Name = 'Process Creation'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APD_ProcessCreation_F { Name = 'Process Creation'; AuditFlag = 'Failure'; Ensure = 'Absent' }
+    AuditPolicySubcategory APS_ProcessCreation_F { Name = 'Process Creation'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_ProcessTermination_S { Name = 'Process Termination'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APD_ProcessTermination_F { Name = 'Process Termination'; AuditFlag = 'Failure'; Ensure = 'Absent' }
-    AuditPolicySubcategory APS_RPCEvents_S { Name = 'RPC Events'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APS_RPCEvents_F { Name = 'RPC Events'; AuditFlag = 'Failure' }
-    AuditPolicySubcategory APS_TokenRightAdjusted_S { Name = 'Token Right Adjusted Events'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APS_TokenRightAdjusted_F { Name = 'Token Right Adjusted Events'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_ProcessTermination_F { Name = 'Process Termination'; AuditFlag = 'Failure' }
+    # Object Access
+    AuditPolicySubcategory APS_DetailedFileShare_F { Name = 'Detailed File Share'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_FileShare_S { Name = 'File Share'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_FileShare_F { Name = 'File Share'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_FileSystem_S { Name = 'File System'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_FileSystem_F { Name = 'File System'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_OtherObjectAccess_S { Name = 'Other Object Access Events'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_OtherObjectAccess_F { Name = 'Other Object Access Events'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_Registry_S { Name = 'Registry'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_Registry_F { Name = 'Registry'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_RemovableStorage_S { Name = 'Removable Storage'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_RemovableStorage_F { Name = 'Removable Storage'; AuditFlag = 'Failure' }
     # Windows Filtering Platform
     AuditPolicySubcategory APS_WFPC_S { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Success'; Ensure = 'Present' }
     AuditPolicySubcategory APS_WFPC_F { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Failure'; Ensure = 'Present' }
@@ -431,11 +440,29 @@ Configuration BaselineConfiguration
     AuditPolicySubcategory APS_DPAPIActivity_S { Name = 'DPAPI Activity'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_DPAPIActivity_F { Name = 'DPAPI Activity'; AuditFlag = 'Failure' }
     # Privilege Use
+    AuditPolicySubcategory APS_NonSensitivePrivilegeUse_F { Name = 'Non Sensitive Privilege Use'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_SensitivePrivilegeUse_S { Name = 'Sensitive Privilege Use'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_SensitivePrivilegeUse_F { Name = 'Sensitive Privilege Use'; AuditFlag = 'Failure' }
     # Policy Change
+    AuditPolicySubcategory APS_AuditPolicyChange_S { Name = 'Audit Policy Change'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_AuditPolicyChange_F { Name = 'Audit Policy Change'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_AuthorizationPolicyChange_S { Name = 'Authorization Policy Change'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_AuthorizationPolicyChange_F { Name = 'Authorization Policy Change'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_AuthenticationPolicyChange_S { Name = 'Authentication Policy Change'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_AuthenticationPolicyChange_F { Name = 'Authentication Policy Change'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_MPSSVCPolicyChange_S { Name = 'MPSSVC Rule-Level Policy Change'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_MPSSVCPolicyChange_F { Name = 'MPSSVC Rule-Level Policy Change'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_OtherPolicyChange_S { Name = 'Other Policy Change Events'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_OtherPolicyChange_F { Name = 'Other Policy Change Events'; AuditFlag = 'Failure' }
+    # System
+    AuditPolicySubcategory APS_OtherSystemEvents_S { Name = 'Other System Events'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_OtherSystemEvents_F { Name = 'Other System Events'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_SecurityStateChange_S { Name = 'Security State Change'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_SecurityStateChange_F { Name = 'Security State Change'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_SecuritySystemExtension_S { Name = 'Security System Extension'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_SecuritySystemExtension_F { Name = 'Security System Extension'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_SystemIntegrity_S { Name = 'System Integrity'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_SystemIntegrity_F { Name = 'System Integrity'; AuditFlag = 'Failure' }
 
     # create dirs
     $toolsDir = 'C:\Tools\'

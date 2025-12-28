@@ -148,3 +148,5 @@ Many thanks to:
 [Olaf Hartong](https://github.com/olafhartong/sysmon-modular) for their Sysmon configurations.
 
 [Raphire](https://github.com/Raphire/Win11Debloat) for their debloating PowerShell script that provided insight into which components are safe to remove.
+
+[Palantir](https://github.com/palantir/windows-event-forwarding/tree/master/group-policy-objects) for their audit policy recommendations.

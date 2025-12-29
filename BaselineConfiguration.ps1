@@ -396,7 +396,38 @@ Configuration BaselineConfiguration
     AuditPolicySubcategory APS_KerberosST_F { Name = 'Kerberos Service Ticket Operations'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_OtherAccountLogon_S { Name = 'Other Account Logon Events'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_OtherAccountLogon_F { Name = 'Other Account Logon Events'; AuditFlag = 'Failure' }
-    #Logon/Logoff
+    # Account Management
+    # Application Group Management - tracks application group creation/modification (Events 4783-4790)
+    AuditPolicySubcategory APS_ApplicationGroupMgmt_S { Name = 'Application Group Management'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_ApplicationGroupMgmt_F { Name = 'Application Group Management'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_ComputerAcctMgmt_S { Name = 'Computer Account Management'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_ComputerAcctMgmt_F { Name = 'Computer Account Management'; AuditFlag = 'Failure' }
+    # Distribution Group Management - tracks distribution group changes (Events 4744-4753, 4759-4762)
+    AuditPolicySubcategory APS_DistributionGroupMgmt_S { Name = 'Distribution Group Management'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_DistributionGroupMgmt_F { Name = 'Distribution Group Management'; AuditFlag = 'Failure' }
+    # Other Account Management Events - tracks password hash access and password policy checks (Events 4782, 4793)
+    AuditPolicySubcategory APS_OtherAccountMgmt_S { Name = 'Other Account Management Events'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_OtherAccountMgmt_F { Name = 'Other Account Management Events'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_SecGroupMgmt_S { Name = 'Security Group Management'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_SecGroupMgmt_F { Name = 'Security Group Management'; AuditFlag = 'Failure' }
+    # User Account Management - tracks account creation/deletion/modification (Events 4720-4767, 4780-4781, 4794, 5376-5377)
+    AuditPolicySubcategory APS_UserAcctMgmt_S { Name = 'User Account Management'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_UserAcctMgmt_F { Name = 'User Account Management'; AuditFlag = 'Failure' }
+    # Detailed Tracking
+    # PNP Activity - tracks plug and play device detection (Event 6416)
+    AuditPolicySubcategory APS_PNPActivity_S { Name = 'PNP Activity'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_PNPActivity_F { Name = 'PNP Activity'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_ProcessCreation_S { Name = 'Process Creation'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_ProcessCreation_F { Name = 'Process Creation'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_ProcessTermination_S { Name = 'Process Termination'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_ProcessTermination_F { Name = 'Process Termination'; AuditFlag = 'Failure' }
+    # RPC Events - tracks inbound RPC connections (Event 5712), useful for lateral movement detection
+    AuditPolicySubcategory APS_RPCEvents_S { Name = 'RPC Events'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_RPCEvents_F { Name = 'RPC Events'; AuditFlag = 'Failure' }
+    # Token Right Adjusted - tracks privilege adjustments in access tokens (Event 4703)
+    AuditPolicySubcategory APS_TokenRightAdjusted_S { Name = 'Token Right Adjusted'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_TokenRightAdjusted_F { Name = 'Token Right Adjusted'; AuditFlag = 'Failure' }
+    # Logon/Logoff
     AuditPolicySubcategory APS_Logon_S { Name = 'Logon'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_Logon_F { Name = 'Logon'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_Logoff_S { Name = 'Logoff'; AuditFlag = 'Success' }
@@ -411,28 +442,30 @@ Configuration BaselineConfiguration
     AuditPolicySubcategory APS_UserDeviceClaims_F { Name = 'User/Device Claims'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_GroupMembership_S { Name = 'Group Membership'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_GroupMembership_F { Name = 'Group Membership'; AuditFlag = 'Failure' }
-    # Account Management
-    AuditPolicySubcategory APS_ComputerAcctMgmt_S { Name = 'Computer Account Management'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APS_ComputerAcctMgmt_F { Name = 'Computer Account Management'; AuditFlag = 'Failure' }
-    AuditPolicySubcategory APS_SecGroupMgmt_S { Name = 'Security Group Management'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APS_SecGroupMgmt_F { Name = 'Security Group Management'; AuditFlag = 'Failure' }
-    # Detailed Tracking
-    AuditPolicySubcategory APS_ProcessCreation_S { Name = 'Process Creation'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APS_ProcessCreation_F { Name = 'Process Creation'; AuditFlag = 'Failure' }
-    AuditPolicySubcategory APS_ProcessTermination_S { Name = 'Process Termination'; AuditFlag = 'Success' }
-    AuditPolicySubcategory APS_ProcessTermination_F { Name = 'Process Termination'; AuditFlag = 'Failure' }
     # Object Access
+    # Application Generated - tracks app-generated audit events via Windows Auditing APIs (Events 4665-4668)
+    AuditPolicySubcategory APS_ApplicationGenerated_S { Name = 'Application Generated'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_ApplicationGenerated_F { Name = 'Application Generated'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_DetailedFileShare_F { Name = 'Detailed File Share'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_FileShare_S { Name = 'File Share'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_FileShare_F { Name = 'File Share'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_FileSystem_S { Name = 'File System'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_FileSystem_F { Name = 'File System'; AuditFlag = 'Failure' }
+    # ADDED: Handle Manipulation - tracks object handle operations (Events 4656, 4658, 4690)
+    AuditPolicySubcategory APS_HandleManipulation_S { Name = 'Handle Manipulation'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_HandleManipulation_F { Name = 'Handle Manipulation'; AuditFlag = 'Failure' }
+    # Kernel Object - tracks kernel object access (Events 4659-4661, 4663) - generates high volume if AuditBaseObjects enabled
+    AuditPolicySubcategory APS_KernelObject_S { Name = 'Kernel Object'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_KernelObject_F { Name = 'Kernel Object'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_OtherObjectAccess_S { Name = 'Other Object Access Events'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_OtherObjectAccess_F { Name = 'Other Object Access Events'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_Registry_S { Name = 'Registry'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_Registry_F { Name = 'Registry'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_RemovableStorage_S { Name = 'Removable Storage'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_RemovableStorage_F { Name = 'Removable Storage'; AuditFlag = 'Failure' }
+    # SAM - tracks Security Account Manager database access
+    AuditPolicySubcategory APS_SAM_S { Name = 'SAM'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_SAM_F { Name = 'SAM'; AuditFlag = 'Failure' }
     # Windows Filtering Platform
     AuditPolicySubcategory APS_WFPC_S { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Success'; Ensure = 'Present' }
     AuditPolicySubcategory APS_WFPC_F { Name = 'Audit Filtering Platform Connection'; AuditFlag = 'Failure'; Ensure = 'Present' }
@@ -450,6 +483,8 @@ Configuration BaselineConfiguration
     AuditPolicySubcategory APS_AuthorizationPolicyChange_F { Name = 'Authorization Policy Change'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_AuthenticationPolicyChange_S { Name = 'Authentication Policy Change'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_AuthenticationPolicyChange_F { Name = 'Authentication Policy Change'; AuditFlag = 'Failure' }
+    AuditPolicySubcategory APS_FilteringPlatformPolicyChange_S { Name = 'Filtering Platform Policy Change'; AuditFlag = 'Success' }
+    AuditPolicySubcategory APS_FilteringPlatformPolicyChange_F { Name = 'Filtering Platform Policy Change'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_MPSSVCPolicyChange_S { Name = 'MPSSVC Rule-Level Policy Change'; AuditFlag = 'Success' }
     AuditPolicySubcategory APS_MPSSVCPolicyChange_F { Name = 'MPSSVC Rule-Level Policy Change'; AuditFlag = 'Failure' }
     AuditPolicySubcategory APS_OtherPolicyChange_S { Name = 'Other Policy Change Events'; AuditFlag = 'Success' }

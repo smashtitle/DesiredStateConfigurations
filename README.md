@@ -139,6 +139,11 @@ Windows will reboot automatically if the configuration requires it. This will ha
 Configuration will resume after reboot.
 
 ### References
+
+[Microsoft Learn: Advanced Audit Configuration for Windows Server](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/advanced-audit-policy-configuration)
+
+[Microsoft Learn: System audit policy recommendations for Windows workstations and servers](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/audit-policy-recommendations)
+
 Many thanks to: 
 
 [Yamato Security](https://github.com/Yamato-Security) for their extensive documentation and tooling for auditing Windows event logs.
